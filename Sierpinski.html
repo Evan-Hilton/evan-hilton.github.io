@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Sierpinski</title>
+
+    <style>
+        body {
+            background: black;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #controls {
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="controls">
+    <button onclick="resetSimulation()">Reset Simulation</button>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<script>
+const WIDTH = 720;
+const HEIGHT = 450;
+const FRAME_RATE = 60;
+
+let canvas = document.getElementById("canvas");
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
+let ctx = canvas.getContext("2d");
+
+let x = [];
+let y = [];
+let ballRadius = 1;
+
+let xstart = WIDTH / 2;
+let ystart = HEIGHT / 2;
+
+let x_ = [WIDTH / 2, 200, WIDTH - 200];
+let y_ = [100, HEIGHT - 100, HEIGHT - 100];
+
+function initialize() {
+    x = [];
+    y = [];
+    x.push(xstart);
+    y.push(ystart);
+}
+
+function main_loop() {
+    let choice = Math.floor(Math.random() * 3);
+
+    let newX = Math.abs((x[x.length - 1] - x_[choice]) / 2) +
+               Math.min(x[x.length - 1], x_[choice]);
+
+    let newY = Math.abs((y[y.length - 1] - y_[choice]) / 2) +
+               Math.min(y[y.length - 1], y_[choice]);
+
+    x.push(newX);
+    y.push(newY);
+}
+
+function paint_loop() {
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+    ctx.fillStyle = "white";
+
+    for (let i = 0; i < x.length; i++) {
+        ctx.beginPath();
+        ctx.arc(x[i], y[i], ballRadius, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function loop() {
+    for (let i = 0; i < 200; i++) {  
+        // multiple iterations per frame to draw faster
+        main_loop();
+    }
+
+    paint_loop();
+    requestAnimationFrame(loop);
+}
+
+/* reset button */
+function resetSimulation() {
+    initialize();
+}
+
+/* Start */
+initialize();
+loop();
+
+</script>
+
+</body>
+</html>
