@@ -75,8 +75,11 @@ function main_loop() {
 }
 
 function paint_loop() {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    
+    ctx.fillStyle = "black";
+    ctx.fillRect(5, 5, WIDTH - 5, HEIGHT - 5);
 
     ctx.fillStyle = "white";
 
