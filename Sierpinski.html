@@ -36,6 +36,7 @@
 const WIDTH = 720;
 const HEIGHT = 450;
 const FRAME_RATE = 60;
+const FRAME_TIME = 1000 / FRAME_RATE;
 
 let canvas = document.getElementById("canvas");
 canvas.width = WIDTH;
@@ -85,13 +86,15 @@ function paint_loop() {
     }
 }
 
-function loop() {
-    for (let i = 0; i < 200; i++) {  
-        // multiple iterations per frame to draw faster
-        main_loop();
-    }
+let lastTime = 0;
+function animate(timestamp) {
+    if(timestamp - lastTime >= FRAME_TIME){
+        lastTime = timestamp;
 
-    paint_loop();
+        main_loop()
+        paint_loop();
+    }
+    
     requestAnimationFrame(loop);
 }
 
@@ -100,9 +103,11 @@ function resetSimulation() {
     initialize();
 }
 
+
+
 /* Start */
 initialize();
-loop();
+requestAnimationFrame(loop);
 
 </script>
 
