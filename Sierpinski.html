@@ -92,9 +92,9 @@ function animate(timestamp) {
         lastTime = timestamp;
 
         main_loop()
-        paint_loop();
     }
-    
+
+    paint_loop();
     requestAnimationFrame(loop);
 }
 
@@ -107,6 +107,7 @@ function resetSimulation() {
 
 /* Start */
 initialize();
+paint_loop();
 requestAnimationFrame(loop);
 
 </script>
