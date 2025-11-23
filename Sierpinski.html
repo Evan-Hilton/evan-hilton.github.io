@@ -88,10 +88,8 @@ function paint_loop() {
 }
 
 let lastTime = 0;
-function animate(timestamp) {
-    if(timestamp - lastTime >= FRAME_TIME){
-        lastTime = timestamp;
-
+function loop(timestamp) {
+    for(let i = 0; i < 200; i ++){
         main_loop()
     }
 
@@ -104,12 +102,9 @@ function resetSimulation() {
     initialize();
 }
 
-
-
 /* Start */
 initialize();
-paint_loop();
-requestAnimationFrame(loop);
+loop()
 
 </script>
 
